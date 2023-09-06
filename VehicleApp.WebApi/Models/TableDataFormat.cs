@@ -1,0 +1,1 @@
+﻿namespace VehicleApp.WebApi.Models;

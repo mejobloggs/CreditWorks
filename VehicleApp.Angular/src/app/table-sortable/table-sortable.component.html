@@ -1,0 +1,23 @@
+<table>
+  <thead>
+    <tr>
+      <ng-container *ngFor="let col of tableData.columns">
+        <th *ngIf="!col.hidden" (click)="sortItems(col.sortOnField || col.field)">{{col.title}}</th>
+      </ng-container>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of tableData.data">
+      <ng-container *ngFor="let col of tableData.columns">
+        <td *ngIf="!col.hidden">
+          <ng-container *ngIf="col.datatype === dataTypeEnum.Image; else genericData">
+            <img [src]="'../../assets/' + item[col.field]" />
+          </ng-container>
+          <ng-template #genericData>
+            {{item[col.field]}}
+          </ng-template>
+        </td>
+      </ng-container>
+    </tr>
+  </tbody>
+</table>
