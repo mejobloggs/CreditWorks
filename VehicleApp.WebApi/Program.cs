@@ -53,7 +53,7 @@ static async Task<IResult> UpdateCategories(IReadOnlyList<VehicleApp.WebApi.Mode
 
     try
     {
-        await categoryDataHelper.Update(categories, db);
+        await categoryDataHelper.Update(categories);
     }
     catch (DbUpdateConcurrencyException)
     {

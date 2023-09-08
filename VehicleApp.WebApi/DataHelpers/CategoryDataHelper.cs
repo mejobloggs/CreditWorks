@@ -6,7 +6,13 @@ namespace VehicleApp.WebApi.DataHelpers;
 
 public class CategoryDataHelper
 {
-    public async Task Update(IReadOnlyList<Models.Category> categories, VehicleAppDb db)
+    private readonly VehicleAppDb db;
+
+    public CategoryDataHelper(VehicleAppDb db)
+    {
+        this.db = db;
+    }
+    public async Task Update(IReadOnlyList<Models.Category> categories)
     {
         var dbCategories = await db.Categories.ToListAsync();
 
