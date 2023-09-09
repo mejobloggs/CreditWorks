@@ -5,7 +5,7 @@ import { TableDataFormat, TableColumn, DataTypeEnum } from './table-sortable/tab
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   public vehicles?: VehicleView[];

@@ -1,0 +1,38 @@
+table {
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  border-collapse: collapse;
+
+  thead {
+    border-bottom: 1px solid #ddd;
+
+    th {
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 5px 0;
+
+      &:hover {
+          background-color: #c1f069;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+        &:hover {
+            background-color: yellow;
+        }
+    }
+
+    td {
+        line-height:22px;
+      img {
+        height: 16px;
+        vertical-align: middle;
+      }
+    }
+  }
+}

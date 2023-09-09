@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<VehicleAppDb>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnectionString")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddSingleton<CategoryChangeValidator>();
-builder.Services.AddSingleton<CategoryDataHelper>();
+builder.Services.AddScoped<CategoryDataHelper>();
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

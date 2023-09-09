@@ -11,7 +11,7 @@ import { TableSortableComponent } from './table-sortable/table-sortable.componen
     TableSortableComponent,
   ],
   imports: [
-    BrowserModule, HttpClientModule
+    BrowserModule, HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
