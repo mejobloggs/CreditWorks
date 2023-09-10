@@ -25,8 +25,7 @@ public class CategoryDataHelper
         {
             if (dbCategories.Find(c => c.Id == category.Id) is Entities.Category existing)
             {
-                db.Entry(existing).OriginalValues["RowVersion"] = category.RowVersion;
-                dbCategories.Remove(existing);
+                db.Categories.Remove(existing);
             }
         }
 
@@ -42,7 +41,7 @@ public class CategoryDataHelper
         //adds
         foreach (var category in categories.Where(c => c.Id == 0))
         {
-            dbCategories.Add(new Entities.Category(category));
+            db.Categories.Add(new Entities.Category(category));
         }
 
         await db.SaveChangesAsync();

@@ -1,1 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
+
+.button, button {
+  background: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: inline-block;
+  cursor: pointer;
+
+  color: #555;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  outline: 0;
+
+  &.small {
+      font-size: 13px;
+      padding: 3px 6px;
+  }
+
+  &.active {
+    background-color: #bddbfa;
+  }
+
+  &.danger {
+    background-color: #d65d5d;
+    color: #fff;
+  }
+
+  &.success {
+    background-color: #55d24f;
+    color: #fff;
+  }
+}
+
+nav {
+  .button {
+    margin-right: 15px;
+  }
+}
+
+form {
+    .form-group {
+        margin-bottom: 15px;
+        label {
+            min-width: 140px;
+            display: inline-block
+        }
+    }
+    .buttons {
+        margin-top: 15px;
+    }
+    input, select {
+        min-width: 100px;
+    }
+}

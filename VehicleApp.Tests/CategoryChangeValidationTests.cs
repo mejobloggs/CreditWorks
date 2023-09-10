@@ -41,6 +41,18 @@ public class CategoryChangeValidationTests
     }
 
     [TestMethod]
+    public void ValidDeleteReturnsTrue()
+    {
+        var cats = defaultCategories.ToList();
+
+        cats.Remove(cats.Last());
+
+        var result = validator.IsValid(cats);
+
+        Assert.IsTrue(result.IsValid);
+    }
+
+    [TestMethod]
     public void InsertingAndAdjustingValidNewRangeReturnsTrue()
     {
         var cats = defaultCategories.ToList();

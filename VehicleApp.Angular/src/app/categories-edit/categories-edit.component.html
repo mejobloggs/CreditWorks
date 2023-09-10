@@ -1,0 +1,36 @@
+<h2>Categories</h2>
+<button (click)="addNew()" type="button"> + Add</button>
+
+<form ngNativeValidate (submit)="save()">
+  <table>
+    <thead>
+      <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Min Kg</td>
+        <td>Max Kg</td>
+        <td>Image</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cat of categories; let i = index">
+        <ng-container *ngIf="!cat.delete">
+          <td>{{cat.id}}</td>
+          <td><input id="name{{i}}" name="name{{i}}" [(ngModel)]="cat.name" type="text" required></td>
+          <td><input id="minKg{{i}}" name="minKg{{i}}" [(ngModel)]="cat.minKg" type="number" step="0.01" min="0" max="99999.99" required></td>
+          <td><input id="maxKg{{i}}" name="maxKg{{i}}" [(ngModel)]="cat.maxKg" type="text" step="0.01" min="0" max="99999.99"></td>
+          <td><input id="imageName{{i}}" name="imageName{{i}}" [(ngModel)]="cat.imageName" type="text" required></td>
+          <td><button class="button small danger" type="button" (click)="remove(cat)">x</button></td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="buttons">
+    <button type="submit" class="success">Save Changes</button>
+  </div>
+  <div class="errors" *ngIf="errorMessage">
+    {{errorMessage}}
+  </div>
+</form>

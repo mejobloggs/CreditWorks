@@ -1,0 +1,34 @@
+<h2>Vehicle #{{vehicle.id}}</h2>
+
+<form ngNativeValidate (submit)="save()">
+  <div class="form-group">
+    <label for="ownerName">Owner: </label>
+    <input id="ownerName" name="ownerName" [(ngModel)]="vehicle.ownerName" required>
+  </div>
+
+  <div class="form-group">
+    <label for="manufactureYear">Year: </label>
+    <input id="manufactureYear" name="manufactureYear" [(ngModel)]="vehicle.manufactureYear" type="number" required>
+  </div>
+
+  <div class="form-group">
+    <label for="weightInKg">Weight (kg): </label>
+    <input id="weightInKg" name="weightInKg" [(ngModel)]="vehicle.weightInKg" type="number" required step="0.01" min="0" max="99999.99">
+  </div>
+
+  <div class="form-group">
+    <label for="manufacturerId">Manufacturer: </label>
+    <select id="manufacturerId" name="manufacturerId" [(ngModel)]="vehicle.manufacturerId" required>
+      <option *ngFor="let man of manufacturers" [value]="man.id">{{man.name}}</option>
+    </select>
+  </div>
+
+  <div class="buttons">
+    <button type="submit" class="success">Save</button>
+
+    <ng-container *ngIf="vehicle.id">
+      or
+      <button type="button" class="danger" (click)="delete()">Delete Vehicle</button>
+    </ng-container>
+  </div>
+</form>

@@ -23,22 +23,30 @@ using (var scope = app.Services.CreateScope())
     DbInitializer.Init(context);
 }
 
+
+RouteGroupBuilder manufacturers = app.MapGroup("/manufacturers");
+manufacturers.MapGet("/", GetAllManufacturers);
+
 RouteGroupBuilder categories = app.MapGroup("/categories");
 categories.MapGet("/", GetAllCategories);
-categories.MapPatch("/", UpdateCategories);
+categories.MapPut("/", UpdateCategories);
 
 RouteGroupBuilder vehicles = app.MapGroup("/vehicles");
 vehicles.MapGet("/", GetVehiclesView);
 vehicles.MapGet("/{id}", GetVehicle);
 vehicles.MapPost("/", CreateVehicle);
-vehicles.MapPut("/", UpdateVehicle);
-vehicles.MapDelete("/", DeleteVehicle);
+vehicles.MapPut("/{id}", UpdateVehicle);
+vehicles.MapDelete("/{id}", DeleteVehicle);
 
 app.Run();
 
+static async Task<IResult> GetAllManufacturers(VehicleAppDb db)
+{
+    return Results.Ok(await db.Manufacturers.AsNoTracking().ToListAsync());
+}
 static async Task<IResult> GetAllCategories(VehicleAppDb db)
 {
-    return TypedResults.Ok(await db.Categories.OrderBy(c => c.MinKg).ToListAsync());
+    return Results.Ok(await db.Categories.AsNoTracking().OrderBy(c => c.MinKg).ToListAsync());
 }
 
 static async Task<IResult> UpdateCategories(IReadOnlyList<VehicleApp.WebApi.Models.Category> categories,
@@ -48,7 +56,7 @@ static async Task<IResult> UpdateCategories(IReadOnlyList<VehicleApp.WebApi.Mode
 
     if (!validation.IsValid)
     {
-        return TypedResults.BadRequest(validation.ErrorMessage);
+        return Results.BadRequest(validation.ErrorMessage);
     }
 
     try
@@ -57,23 +65,23 @@ static async Task<IResult> UpdateCategories(IReadOnlyList<VehicleApp.WebApi.Mode
     }
     catch (DbUpdateConcurrencyException)
     {
-        return TypedResults.BadRequest("The categories you tried to save are not the latest. Please reload and try again");
+        return Results.BadRequest("The categories you tried to save are not the latest. Please reload and try again");
     }
 
-    return TypedResults.NoContent();
+    return Results.Ok(await db.Categories.AsNoTracking().OrderBy(c => c.MinKg).ToListAsync());
 }
 
 static async Task<IResult> GetVehiclesView(VehicleAppDb db)
 {
-    return TypedResults.Ok(await db.VehiclesView.ToListAsync());
+    return Results.Ok(await db.VehiclesView.AsNoTracking().ToListAsync());
 }
 
 static async Task<IResult> GetVehicle(int id, VehicleAppDb db)
 {
     return await db.Vehicles.FindAsync(id)
         is Vehicle vehicle
-        ? TypedResults.Ok(vehicle)
-        : TypedResults.NotFound();
+        ? Results.Ok(vehicle)
+        : Results.NotFound();
 }
 
 static async Task<IResult> CreateVehicle(Vehicle vehicle, VehicleAppDb db)
@@ -81,19 +89,19 @@ static async Task<IResult> CreateVehicle(Vehicle vehicle, VehicleAppDb db)
     db.Vehicles.Add(vehicle);
     await db.SaveChangesAsync();
 
-    return TypedResults.Created($"/vehicles/{vehicle.Id}", vehicle);
+    return Results.Created($"/vehicles/{vehicle.Id}", vehicle);
 }
 
 static async Task<IResult> UpdateVehicle(int id, Vehicle vehicle, VehicleAppDb db)
 {
     var dbVehicle = await db.Vehicles.FindAsync(id);
-    if (dbVehicle is null) return TypedResults.NotFound();
+    if (dbVehicle is null) return Results.NotFound();
 
     dbVehicle.Update(vehicle);
 
     await db.SaveChangesAsync();
 
-    return TypedResults.NoContent();
+    return Results.NoContent();
 }
 
 static async Task<IResult> DeleteVehicle(int id, VehicleAppDb db)
@@ -102,8 +110,8 @@ static async Task<IResult> DeleteVehicle(int id, VehicleAppDb db)
     {
         db.Vehicles.Remove(vehicle);
         await db.SaveChangesAsync();
-        return TypedResults.NoContent();
+        return Results.NoContent();
     }
 
-    return TypedResults.NotFound();
+    return Results.NotFound();
 }

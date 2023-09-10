@@ -1,0 +1,10 @@
+<h2 id="tableLabel">Vehicle List</h2>
+
+<!--<a routerLink="/vehicles/edit" class="button"> + Add</a>-->
+
+<p *ngIf="!vehicles"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
+
+<ng-container *ngIf="vehiclesTableData">
+  <app-table-sortable [tableData]="vehiclesTableData"></app-table-sortable>
+</ng-container>
+

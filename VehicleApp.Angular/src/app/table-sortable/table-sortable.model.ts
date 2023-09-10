@@ -9,6 +9,7 @@ export interface TableColumn {
 export interface TableDataFormat {
   columns: TableColumn[];
   data: any[];
+  editRoute?: string;
 }
 
 
