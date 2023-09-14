@@ -28,7 +28,7 @@ export class ApiService {
   }
 
   addVehicle(vehicle: Vehicle) {
-    const url = `/vehicles/${vehicle.id}`;
+    const url = `/vehicles`;
     return this.http.post<Vehicle>(url, vehicle);
   }
 

@@ -24,15 +24,20 @@ export class VehicleEditComponent {
 
   ngOnInit(): void {
     const vehicleId = Number(this.route.snapshot.paramMap.get('id'));
-    this.apiService.getVehicle(vehicleId).subscribe(v => { this.vehicle = v });
+    if (vehicleId > 0) {
+      this.apiService.getVehicle(vehicleId).subscribe(v => { this.vehicle = v });
+    }
     this.apiService.getManufacturers().subscribe(m => { this.manufacturers = m });
   }
 
   save(): void {
     if (this.vehicle) {
-      this.apiService.editVehicle(this.vehicle).subscribe(() => {
-        this.goBack();
-      });
+      if (this.vehicle.id && this.vehicle.id > 0) {
+        this.apiService.editVehicle(this.vehicle).subscribe(() => { this.goBack(); });
+      }
+      else {
+        this.apiService.addVehicle(this.vehicle).subscribe(() => { this.goBack(); });
+      }
     }
   }
 

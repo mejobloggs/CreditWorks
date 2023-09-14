@@ -23,6 +23,7 @@ import { CategoriesEditComponent } from './categories-edit/categories-edit.compo
     RouterModule.forRoot([
       { path: '', redirectTo: '/vehicles', pathMatch: 'full' },
       { path: 'vehicles', component: VehicleListComponent },
+      { path: 'vehicles/add', component: VehicleEditComponent },
       { path: 'vehicles/edit/:id', component: VehicleEditComponent },
       { path: 'categories', component: CategoriesEditComponent },
     ]),

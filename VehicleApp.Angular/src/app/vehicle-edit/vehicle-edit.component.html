@@ -1,4 +1,5 @@
-<h2>Vehicle #{{vehicle.id}}</h2>
+<h2 *ngIf="vehicle.id">Vehicle #{{vehicle.id}}</h2>
+<h2 *ngIf="!vehicle.id">New Vehicle</h2>
 
 <form ngNativeValidate (submit)="save()">
   <div class="form-group">
